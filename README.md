@@ -1,5 +1,6 @@
 # RSS Feed Reader
-## http://hello-st26.rhcloud.com
+
+http://hello-st26.rhcloud.com
 
 University coursework: RSS Feed Reader web application. 
 
