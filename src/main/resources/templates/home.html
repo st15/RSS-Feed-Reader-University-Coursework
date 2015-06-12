@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Feed Reader</title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Latest compiled and minified CSS 	-->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+
+	
+    <!-- Bootstrap Core CSS 
+    <link href="/public/css/bootstrap.min.css" rel="stylesheet" /> -->
+    
+<!-- Optional theme
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" /> -->
+<!-- Custom Fonts -->
+<link href="public/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
+	rel="stylesheet" type="text/css" />
+<!-- Plugin CSS -->
+<link rel="stylesheet" href="public/css/animate.min.css" type="text/css" />
+<!-- Custom CSS -->
+<link rel="stylesheet" href="public/css/landing-page.css"
+	type="text/css" />
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body id="page-top">
+	<nav class="navbar navbar-default navbar-fixed-top topnav"
+		role="navigation">
+		<div class="container topnav">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand topnav page-scroll" href="#">Feed Reader</a>
+			</div>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul th:if="!${currentUser}" class="nav navbar-nav navbar-right">
+					<li><a href="/login"><span
+							class="glyphicon glyphicon-log-in"></span> Log In</a></li>
+				</ul>
+				<div th:if="${currentUser}">
+					<ul class="nav navbar-nav navbar-left">
+						<li><a th:href="'/user/' + ${currentUser.id}">View myself</a></li>
+						<li><a class="page-scroll" href="#add">Add a feed</a></li>
+						<li th:if="${currentUser.isAdmin}"><a href="/user/create">Create
+								a new user</a></li>
+						<li th:if="${currentUser.isAdmin}"><a href="/users">View
+								all users</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<form class="navbar-form  pull-left" th:action="@{/logout}"
+								method="post">
+								<div class="form-group">
+									<button class="btn btn-default navbar-btn" type="submit">
+										<span class="glyphicon glyphicon-log-out"></span> Log out
+									</button>
+								</div>
+							</form>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<!-- Header content -->
+	<a name="about"></a>
+	<div th:if="!${currentUser}" class="intro-header">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="intro-message">
+						<h1>Feed Reader</h1>
+						<h3>Read your favourite feeds.</h3>
+						<hr class="intro-divider" />
+						<ul class="list-inline intro-social-buttons">
+							<li><a href="/login" class="btn btn-primary btn-xl"><span
+									class="glyphicon glyphicon-log-in"></span> <span
+									class="network-name">Log In</span></a></li>
+							<li><a href="/user/create" class="btn btn-primary btn-xl"><span
+									class="glyphicon glyphicon-chevron-right"></span> <span
+									class="network-name">Register</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /.container -->
+
+	</div>
+	<!-- /.intro-header -->
+	<!-- Begin page content -->
+
+	<div th:if="${currentUser}" class="container">
+	
+			<div class="row">
+				<div class="col-lg-12">
+		<div class="container-content">
+			<ul th:each="feedInfo : ${currentUser.feeds}" class="list-group">
+				<li class="list-group-item">
+
+					<div class="media">
+						<a  th:if="${feedInfo.image}" th:href="${feedInfo.image.link}" class="pull-left">   
+						<img
+							th:src="${feedInfo.image.url}" class="media-object"
+							alt="Feed Image" width="64" />
+						 </a> 
+						<div class="media-body">
+							<h3 class="media-heading" th:text="${feedInfo.name}">feed
+								name</h3>
+						</div>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Title</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="feed : ${feedInfo.feedEntries}">
+									<td><a th:href="${feed.url}" th:text="${feed.title}">title</a></td>
+									<td th:utext="${feed.description}">description</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+
+		<!-- panel -->
+
+		<div id="add" class="panel panel-default">
+			<div class="panel-body">
+				<div class="clearfix"></div>
+				<h2 class="section-heading">Add new feed</h2>
+
+				<form role="form" name="form" action="#" th:action="@{/add}"
+					method="post">
+
+					<label for="url">Feed Url: </label> <input type="text" name="url"
+						id="url" required="required" autofocus="autofocus" />
+					<button type="submit" class="btn btn-primary">Add</button>
+				</form>
+
+				<div th:if="${param.error}" class="alert alert-danger" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign"
+						aria-hidden="true"></span> <span class="sr-only">Error:</span>
+					<div th:utext="${param.error}"></div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- /.panel -->
+		</div>
+		</div>
+	</div>
+	<!-- Footer -->
+	<!--  <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    -->
+
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    
+    
+</body>
+</html>

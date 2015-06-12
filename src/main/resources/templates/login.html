@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Log In</title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<!-- Optional theme
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" /> -->
+<!-- Custom Fonts -->
+<link href="public/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
+	rel="stylesheet" type="text/css" />
+<!-- Plugin CSS -->
+<link rel="stylesheet" href="public/css/animate.min.css" type="text/css" />
+<!-- Custom CSS -->
+<link rel="stylesheet" href="public/css/landing-page.css"
+	type="text/css" />
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<nav id="mainNav" class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Feed Reader</a>
+			</div>
+		</div>
+	</nav>
+	<!-- Begin page content -->
+	<div class="form-group">
+		<form class="form-signin" th:action="@{/login}" method="post">
+			<h3 class="form-signin-heading">Please sign in</h3>
+
+			<div th:if="${param.error}" class="alert alert-danger" role="alert">
+				<span class="glyphicon glyphicon-exclamation-sign"
+					aria-hidden="true"></span> <span class="sr-only">Error:</span>
+				Enter a valid email address and password
+			</div>
+			<div th:if="${param.logout}" class="alert alert-info" role="alert">You
+				have been logged out.</div>
+
+			<div>
+				<label for="email" class="sr-only">Email address</label> <input
+					type="email" name="email" id="email" required="required"
+					autofocus="autofocus" class="form-control" />
+			</div>
+			<div>
+				<label for="password" class="sr-only">Password</label> <input
+					type="password" name="password" id="password" required="required"
+					class="form-control" />
+			</div>
+
+			<div class="checkbox">
+				<label for="remember-me"> <input type="checkbox"
+					name="remember-me" id="remember-me" /> Remember me
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+				in</button>
+		</form>
+	</div>
+
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</body>
+</html>
