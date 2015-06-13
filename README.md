@@ -2,7 +2,7 @@
 
 University coursework: RSS Feed Reader web application. 
 
-I have deployed the app on OpenShift at http://hello-st26.rhcloud.com
+I have deployed the app on [OpenShift](http://www.openshift.com) at http://hello-st26.rhcloud.com
 
 It's built using:
 Java, 
