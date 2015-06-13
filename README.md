@@ -2,9 +2,9 @@
 
 University coursework: RSS Feed Reader web application. 
 
-I have deployed the app on [OpenShift](http://www.openshift.com) at http://hello-st26.rhcloud.com
+I have deployed the app on [OpenShift](http://www.openshift.com) at http://hello-st26.rhcloud.com using DIY cartridge with JDK 8 installed.
 
-It's built using:
+The app is built using:
 Java, 
 Spring Boot (MVC, Security, Data JPA), 
 Thymeleaf, 
