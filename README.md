@@ -1,10 +1,10 @@
 # RSS Feed Reader
 
-http://hello-st26.rhcloud.com
-
 University coursework: RSS Feed Reader web application. 
 
-Built using:
+I have deployed the app on OpenShift at http://hello-st26.rhcloud.com
+
+It's built using:
 Java, 
 Spring Boot (MVC, Security, Data JPA), 
 Thymeleaf, 
